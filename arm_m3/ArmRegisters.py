@@ -17,7 +17,7 @@ class aRegisters:
     gaddress = gdb.Value(adr)
     paddress = gaddress.cast(uint_pointer_type)
     try:
-        c=long(paddress.dereference())
+        c=int(paddress.dereference())
     #    print("=> %x" % c)
     except:
         print("** Error **")
@@ -26,8 +26,8 @@ class aRegisters:
 #
 #
   def write32bits(self,adr,value):
-    adr=long(adr)
-    value=long(value)
+    adr=int(adr)
+    value=int(value)
     #print(adr)
     #print(value)
     st="set {int}"+hex(adr)+" = " +hex(value)
@@ -72,7 +72,7 @@ class aRegisters:
     self.reg[15]=self.read32bits(adr+2) # PC
     self.psr=self.read32bits(adr+3)
     # and sp after popping all the registers
-    self.reg[13]=long(adr+4)
+    self.reg[13]=int(adr+4)
     #for i in range(0,16):
     #    print("%d : 0x%x" % (i,self.reg[i]))
   #
@@ -93,9 +93,9 @@ class aRegisters:
   def getCPURegisters(self):
     for i in range(0,16):
       r="r"+str(i)
-      self.reg[i]=long(gdb.selected_frame().read_register(r) )
+      self.reg[i]=int(gdb.selected_frame().read_register(r) )
       self.reg[i]=self.reg[i] & 0xffffffff # unsigned hack
-    self.psr=long(gdb.selected_frame().read_register("xpsr"))
+    self.psr=int(gdb.selected_frame().read_register("xpsr"))
     #print("Read registers")
     #for i in range(0,16):
         #print("%d: 0x%x" % (i,self.reg[i]))

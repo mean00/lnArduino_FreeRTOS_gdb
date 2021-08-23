@@ -130,7 +130,7 @@ class Scheduler:
     gaddress = gdb.Value(address)
     paddress = gaddress.cast(uint_pointer_type)
     try:
-        c=long(paddress.dereference())
+        c=int(paddress.dereference())
     except:
         print("*Error *")
         c=0
