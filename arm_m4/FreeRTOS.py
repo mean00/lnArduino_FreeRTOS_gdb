@@ -149,11 +149,12 @@ class Scheduler:
     #            1*4 = PC
     #            1*4 = PSR
     #print("base 0x%x" % (topStack))
-    importantRegisters=topStack+(13) # skip registers
-    LR=self.Read32(importantRegisters)
-    PC=self.Read32(importantRegisters+1)
+    regs=aRegisters()
+    regs.loadRegistersFromMemory(topStack) # regs now contains the address
+    LR=regs.reg[14]
+    PC=regs.reg[15]
     # This is the address of the user stack, i.e. after the 16 registers saved by FreeRTOS
-    actualStack=topStack+16
+    actualStack=regs.reg[13]
     print("\t\t LR=0x%x PC=0x%x SP=0x%x function=%s" % (LR, PC, actualStack,self.GetSymbolForAddress(PC)))
 #
 #

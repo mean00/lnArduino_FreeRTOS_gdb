@@ -10,7 +10,8 @@ from List import ListInspector
 
 
 def printAdr(title,adr):
-    print("%s : adr=0x%x" %(title,adr))
+    #print("%s : adr=0x%x" %(title,adr))
+    pass
 #
 # Helper class to deal with registers
 #    
@@ -64,7 +65,7 @@ class aRegisters:
 
   # load all the registers from the psp TCB pointer 
   def loadRegistersFromMemory(self,adr):
-    printAdr("Initial Stack",adr)
+    #printAdr("Initial Stack",adr)
     # First is the manually saved registers R4..R11 + LR
     for i in range(0,8):
        r=self.read32bits(adr+i)
@@ -73,9 +74,9 @@ class aRegisters:
     adr+=9
     # Then *** OPTIONNALY** we have fpu 16...31
     fpu=False
-    printAdr("R14 ",self.reg[14])
+    #printAdr("R14 ",self.reg[14])
     if(not (self.reg[14] & 0x10)): # Read FP regs too
-        print("** FPU **")
+        #print("** FPU **")
         fpu=True
         for i in range(0,16):
            r=self.read32bits(adr+i)
@@ -93,7 +94,7 @@ class aRegisters:
     adr+=8
     if(fpu is True): # low fpureg
         adr+=18  # 16 fp + fpspr + reserved
-    print("15")
+    #print("15")
     self.reg[13]=int(adr)
     printAdr("final stack ",adr)
     printAdr("PC ",self.reg[15])
@@ -110,7 +111,7 @@ class aRegisters:
 
   # set the CPU register with the value stored in the object
   def setCPURegisters(self):
-    print("SET CPU")
+    #print("SET CPU")
     printAdr("PC ",self.reg[15])
     printAdr("LR ",self.reg[14])
     for i in range(0,16): 
