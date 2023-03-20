@@ -215,7 +215,7 @@ class Scheduler:
     regs=aRegisters()
     regs.loadRegistersFromMemory(stack) # regs now contains the address
     regs.setCPURegisters()   # set the actual registers
-
+    regs.returnFromException()
     # now we exit interrupt mode    
 
     
